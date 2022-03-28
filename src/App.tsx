@@ -1,5 +1,5 @@
 import './App.css';
-import { QuestionsState, fetchQuizQestions } from './API';
+import { fetchQuizQuestions, QuestionsState } from './API';
 import { AnswerObject} from './types';
 import { Difficulty } from './enum';
 import { useState } from 'react';
@@ -20,7 +20,7 @@ const App =() => {
   const startQuiz = async () => {
     setLoading(true);
     setGameOver(false);
-    const newQuestions = await fetchQuizQestions(
+    const newQuestions = await fetchQuizQuestions(
       TOTAL_QUESTIONS,
       Difficulty.EASY
     );
@@ -35,7 +35,7 @@ const App =() => {
       // User's answer
       const answer = e.currentTarget.value;
       // Check answer against correct answer
-      const correct = questions[number].correctAnswer === answer;
+      const correct = questions[number].correct_answer === answer;
       // Add score if answer is correct
       if (correct) setScore((prev) => prev + 1);
       // Save the answer in the array for user answers
@@ -43,7 +43,7 @@ const App =() => {
         question: questions[number].question,
         answer,
         correct,
-        correctAnswer: questions[number].correctAnswer,
+        correctAnswer: questions[number].correct_answer,
       };
       setUserAnswers((prev) => [...prev, answerObject]);
     }
@@ -71,7 +71,14 @@ const App =() => {
         {!gameOver ? <p className='score'>Score: {score}</p> : null}
         {loading ? <p>Loading Questions...</p> : null}
         {!loading && !gameOver && (
-          <QuestionCard />
+          <QuestionCard
+          questionNr={number +1}
+          totalQuestions={TOTAL_QUESTIONS}
+          question={questions[number].question}
+          answers={questions[number].answers} 
+          userAnswer={userAnswers? userAnswers[number] : undefined}
+          callback={checkAnswer}
+          />
         )}
 
         {!gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ? (
@@ -85,3 +92,5 @@ const App =() => {
 }
 
 export default App;
+
+//https://github.com/weibenfalk/react-quiz/tree/master/src

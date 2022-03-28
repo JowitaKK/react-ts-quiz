@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import { QuestionCardCorrentProps } from '../types';
-
+import { QuestionCardProps } from '../types';
+import { Button } from './Button';
 
 //or joining 2 interfaces 
 // interface QuestionCardCorrentProps  {
@@ -9,7 +9,7 @@ import { QuestionCardCorrentProps } from '../types';
 
 // const QuestionCard: FC<QuestionCardProps & QuestionCardCorrentProps> = ({question,
 
-const QuestionCard: FC<QuestionCardCorrentProps> = ({question,
+const QuestionCard: FC<QuestionCardProps> = ({question,
   answers,
   callback,
   userAnswer,
@@ -24,7 +24,7 @@ const QuestionCard: FC<QuestionCardCorrentProps> = ({question,
     <p dangerouslySetInnerHTML={{ __html: question }} />
     <div>
       {answers.map((answer) => (
-        <button
+        <Button
           key={answer}
           correct={userAnswer?.correctAnswer === answer}
           userClicked={userAnswer?.answer === answer}
@@ -32,7 +32,7 @@ const QuestionCard: FC<QuestionCardCorrentProps> = ({question,
           <button disabled={userAnswer ? true : false} value={answer} onClick={callback}>
             <span dangerouslySetInnerHTML={{ __html: answer }} />
           </button>
-        </button>
+        </Button>
       ))}
     </div>
     </div>

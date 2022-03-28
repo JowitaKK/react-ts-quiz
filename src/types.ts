@@ -1,14 +1,16 @@
 import React from "react";
 
+//underscore from api
 export interface Question  {
     category: string;
-    correctAnswer: string;
+    correct_answer: string;
     difficulty: string;
-    incorrectAnswers: string[];
+    incorrect_answers: string[];
     question: string;
     types: string;
 }
 
+//button contains
 export interface AnswerObject  {
     question: string;
     answer: string;
@@ -31,9 +33,9 @@ export interface ButtonProps {
 }
 
 
-export interface QuestionCardCorrentProps extends QuestionCardProps {
-  correct: boolean
-}
+// export interface QuestionCardCorrentProps extends QuestionCardProps {
+//   correct: boolean
+// }
 
 
 //or use type as interface other type
